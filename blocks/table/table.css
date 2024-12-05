@@ -36,12 +36,14 @@
 
 
 /** add styles **/
+.table.withHeader {
+  > div:first-child {
+    background-color: #e3e3e3;
+  }
+}
 .table {
     border-bottom: 1px solid #d1d1d1;
     border-right: 1px solid #d1d1d1;
-    > div:first-child {
-        background-color: #e3e3e3;
-    }
     > div {
       display: flex;
       gap: 0px;
