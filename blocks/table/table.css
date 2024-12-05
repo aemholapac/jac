@@ -36,7 +36,7 @@
 
 
 /** add styles **/
-.table.withHeader {
+.with-header {
   > div:first-child {
     background-color: #e3e3e3;
   }
