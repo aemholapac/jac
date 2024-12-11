@@ -19,30 +19,31 @@ export async function createOverview(block) {
         keys : ['title','description']
     }
 
-    let searchWord = location.search.substring(1).split("&")[0];//location.hash.substring(1);
-    searchWord = searchWord.split("=")[1];
-    console.log(searchWord);
-    console.log(`search word: ${searchWord}`)
-    const fuse = new Fuse(data, options);
-    //const result = fuse.search('情報');
-    const result = fuse.search(searchWord);
-    console.log("RESULT ====");
-    console.log(result);
-
-
-    let jobList = "";
-    result.forEach(element => {
-        console.log(element.item.title);
-        jobList += `<li>${element.item.title}</li>`
-    });
-
     const searchForm = `
-   aa <form name="search" id="search" method="get" action="/" accept-charset="UTF-8">
-	<input type="text" name="search_key" id="search_keyword" value="">
-    <input type="submit" name="search_button" value="検索" />
-    </form>bb
+    <input id="search" placeholder="検索語を入力..." />
+    <ul id="results"></ul>
     `;
-    block.innerHTML = `<hr>${searchForm}<ul>${jobList}</ul>`;
+    block.innerHTML = searchForm;
+    console.log("block rendered.");
+
+    const fuse1 = new Fuse(data, options);
+    console.log("prep fuse");
+    const baseurl = 'https://main--jac--aemholapac.aem.live';
+    document.getElementById('search').addEventListener('input', (e) => {
+      const query = e.target.value;
+      console.log(query);
+      const results = fuse1.search(query);
+    
+      const resultsElement = document.getElementById('results');
+      resultsElement.innerHTML = ''; // 結果をクリア
+    
+      results.forEach(result => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${baseurl}${result.item.path}"> ${result.item.title}</a><br> (${result.item.description})`;
+        resultsElement.appendChild(li);
+      });
+    });
+    
 
 }
 
