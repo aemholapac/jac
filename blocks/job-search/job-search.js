@@ -16,7 +16,7 @@ export async function createOverview(block) {
 
     const options = {
         includeScore: true,
-        keys : ['title','description']
+        keys : ['path','title','description']
     }
 
     const searchForm = `
